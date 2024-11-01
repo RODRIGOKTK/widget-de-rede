@@ -130,3 +130,5 @@ def create_window():
 
 # Chama a função para exibir a janela
 create_window()
+
+#Criado por @RODRIGOKTK

@@ -1,7 +1,7 @@
 import tkinter as tk
 import socket
 import random
-import webbrowser  # Para abrir o link no navegador
+import webbrowser  # Para abrir links no navegador
 import winsound
 import psutil  # Para obter informações detalhadas da interface de rede
 import subprocess  # Para realizar o ping
@@ -28,7 +28,12 @@ def get_active_mac():
 def get_network_speed():
     for interface, stats in psutil.net_if_stats().items():
         if stats.isup:
-            return f"Velocidade: {stats.speed} Mbps" if stats.speed else "Velocidade: Não disponível"
+            if stats.speed == 100:
+                return "Velocidade: Fast (100 Mbps)"
+            elif stats.speed == 1000:
+                return "Velocidade: Giga (1000 Mbps)"
+            elif stats.speed:
+                return f"Velocidade: {stats.speed} Mbps"
     return "Velocidade: Não disponível"
 
 def ping_google_dns():
@@ -71,6 +76,12 @@ def move_window():
 def open_github():
     webbrowser.open("https://github.com/RODRIGOKTK/widget-de-rede")
 
+def open_speedtest():
+    webbrowser.open("https://fast.com/pt")
+
+def open_speedtest():
+    webbrowser.open("https://meuip.com.br/")
+
 def create_window():
     global window, ip_label, mac_label, speed_label, ping_label, current_ip
     current_ip = get_ip()
@@ -92,12 +103,23 @@ def create_window():
     ping_label = tk.Label(window, text=f"{ping_google_dns()}", font=("Arial", 16), bg="white")
     ping_label.pack(padx=10, pady=5)
     
+    # Frame para os botões superiores
+    button_frame = tk.Frame(window)
+    button_frame.pack(pady=5)
+    
+    move_button = tk.Button(button_frame, text="Mover Janela", command=move_window, bg="blue", fg="white")
+    move_button.pack(side="left", padx=5)
+
+    speedtest_button = tk.Button(button_frame, text="SpeedTest", command=open_speedtest, bg="green", fg="white")
+    speedtest_button.pack(side="left", padx=5)
+
+    speedtest_button = tk.Button(button_frame, text="MeuIp", command=open_speedtest, bg="orange", fg="white")
+    speedtest_button.pack(side="left", padx=5)
+    
     finish_button = tk.Button(window, text="Finalizar", command=window.destroy, bg="red", fg="white")
     finish_button.pack(pady=5)
     
-    move_button = tk.Button(window, text="Mover Janela", command=move_window, bg="blue", fg="white")
-    move_button.pack(pady=5)
-    
+    # Botão GitHub no canto inferior direito
     github_button = tk.Button(window, text="@RODRIGOKTK", command=open_github, fg="blue", cursor="hand2")
     github_button.pack(anchor="se", padx=10, pady=10)
     
@@ -106,3 +128,5 @@ def create_window():
     window.mainloop()
 
 create_window()
+
+#Criado por @RODRIGOKTK

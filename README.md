@@ -7,3 +7,6 @@ Ping para DNS Google
 Atualização com sinal sonoro e colorido na troca de IP
 
 Codigo e aplicação na extensão exe para windows.
+
+
+Codigo atualizado, porem o arquivo na extensão exe não está mais funcionando no windows !
